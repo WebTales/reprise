@@ -27,7 +27,9 @@ def insertContent(titre, chapeau, texte, visuel, images):
     
     # insert visuel
     if visuel is not None:
-        insertDAM('image de test', visuel)
+        visuel_id = insertDAM('image de test', visuel)
+    else:
+        visuel_id = None
     
     # get images
     for image in images:
@@ -47,7 +49,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
         "productProperties" : "",
         "workspace" : {
             "fields" : {
-                "image" : "5659bd871a6c7ed4238b45c4"
+                "image" : visuel_id
             },
             "status" : "published",
             "taxonomy" : [ ],
@@ -76,7 +78,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
         },
         "live" : {
             "fields" : {
-                "image" : "5659bd871a6c7ed4238b45c4"
+                "image" : visuel_id
             },
             "status" : "published",
             "taxonomy" : [ ],
@@ -116,7 +118,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
     }
     
     #print(content)
-    #content_id = db.Contents.insert_one(content).inserted_id
+    content_id = db.Contents.insert_one(content).inserted_id
 
 def insertDAM(title, visuel):
     filePath = baseUrl + visuel
@@ -125,7 +127,6 @@ def insertDAM(title, visuel):
     meta = image.info()
     fileSize = int(meta.getheaders("Content-Length")[0])
     originalFileId = fs.put(image, content_type=contentType, filename=title)
-    
     createTime = int(time.time())
     lastUpdateTime = createTime
     dam = {
@@ -165,8 +166,8 @@ def insertDAM(title, visuel):
         "createTime" : createTime,
         "lastUpdateTime" : lastUpdateTime
     }
-    print(dam)
-    fs.delete(originalFileId)
+    dam_id = db.Dam.insert_one(dam).inserted_id
+    return dam_id
 
 def checksum_md5(self, filename):
     try: 
