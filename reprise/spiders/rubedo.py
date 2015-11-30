@@ -23,7 +23,8 @@ def insertContent(titre, chapeau, texte, visuel, images):
     createTime = 1448721804
     
     # insert visuel
-    insertDAM('image de test', visuel)
+    if visuel is not None:
+        insertDAM('image de test', visuel)
     
     # get images
     for image in images:

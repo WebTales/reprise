@@ -5,7 +5,8 @@ class RepriseSpider(scrapy.Spider):
     name = "reprise"
     allowed_domains = ["calais.fr"]
     start_urls = [
-        "http://www.calais.fr/spip.php?article2680"
+        "http://www.calais.fr/spip.php?article2680",
+        "http://www.calais.fr/spip.php?article145"
     ]
 
     def parse(self, response):
