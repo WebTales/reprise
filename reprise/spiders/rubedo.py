@@ -5,8 +5,8 @@ import base64
 connexionString = 'mongodb://webtales:w3bt4les2015@149.202.168.50'
 dbName = 'calais'
 
-client = MongoClient(params.connexionString)
-db = client[params.dbName]
+client = MongoClient(connexionString)
+db = client[dbName]
 
 def insertContent(titre, chapeau, texte, visuel, images):
 
