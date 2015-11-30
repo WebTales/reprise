@@ -4,7 +4,7 @@ import csv
 
 class RepriseSpider(scrapy.Spider):
     l = []
-    url_list = open("calais.csv", "rb")
+    url_list = open("calais.csv", dialect=csv.excel_tab)
     reader = csv.reader(url_list)
     for row in reader:
         l.append(row)
