@@ -87,7 +87,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
                                     "text" : titre,
                                     "urlSegment" : "url_courte",
                                     "summary" : chapeau,
-                                    "body" : "texte
+                                    "body" : texte
                                 },
                                 "locale" : "fr"
                         }
