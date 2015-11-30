@@ -39,8 +39,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
         image_id = str(insertDAM(image))
         image_path = '/dam?media-id=' + image_id
         thumbnail.set('src',image_path) 
-    texte = lxml.html.tostring(body_lxml)  
-    texte = texte.encode('UTF-8')
+    texte = lxml.html.tostring(body_lxml, encoding='UTF-8')  
         
     content = {
         #"_id" : ObjectId("5659bd8c1a6c7ed3238b4621"),
