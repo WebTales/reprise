@@ -119,14 +119,11 @@ def insertContent(titre, chapeau, texte, visuel, images):
 
 def insertDAM(title, visuel):
     filePath = baseUrl + visuel
-    (type, encoding) =  mimetypes.guess_type(filePath)
-    print(encoding)
-    #image = urllib2.urlopen(filePath)
+    contentType, fileEncoding =  mimetypes.guess_type(filePath)
+    image = urllib2.urlopen(filePath)
+    originalFileId = fs.put(image, content_type=contentType, filename=title)
     
     
-    
-    originalFileId = "5659bd871a6c7ed4238b45c1"
-    contentType = "image/jpeg"
     fileSize = 453680
     createTime = 1448721799
     lastUpdateTime = 1448721799
@@ -167,6 +164,7 @@ def insertDAM(title, visuel):
         "createTime" : createTime,
         "lastUpdateTime" : lastUpdateTime
     }
+    print(dam)
 
 def checksum_md5(self, filename):
     try: 
