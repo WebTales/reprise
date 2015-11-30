@@ -29,15 +29,15 @@ def insertContent(titre, chapeau, texte, visuel, images):
     
     # insert visuel
     if visuel is not None:
-        visuel_id = str(insertDAM(os.path.basename(visuel), visuel))
+        visuel_id = str(insertDAM(visuel))
     else:
         visuel_id = None
     
     # get and replace images in body
     body_lxml = lxml.html.document_fromstring(texte)
-    for thumbnail in body_lxml.xpath('//img'):
+    for thumbnail in body_lxml.xpath('//img[not (contains(@src, "arton") or contains(@src, "puce"))]/@src'):
         image = thumbnail.get('src')
-        image_id = str(insertDAM(os.path.basename(image), visuel))
+        image_id = str(insertDAM(image))
         image_path = '/dam?media-id=' + image_id
         thumbnail.set('src',image_path) 
             
@@ -124,54 +124,59 @@ def insertContent(titre, chapeau, texte, visuel, images):
     #print(content)
     content_id = db.Contents.insert_one(content).inserted_id
 
-def insertDAM(title, visuel):
-    filePath = baseUrl + visuel
+def insertDAM(visuel):
+    
     fileName = os.path.basename(visuel)
-    contentType, fileEncoding =  mimetypes.guess_type(filePath)
-    image = urllib2.urlopen(filePath)
-    meta = image.info()
-    fileSize = int(meta.getheaders("Content-Length")[0])
-    originalFileId = fs.put(image, content_type=contentType, filename=fileName, mainFileType='Image')
-    createTime = int(time.time())
-    lastUpdateTime = createTime
-    dam = {
-        "typeId" : "51a60c1cc1c3da0407000007",
-        "directory" : "notFiled",
-        "mainFileType" : "Image",
-        "title" : title,
-        "taxonomy" : [ ],
-        "writeWorkspace" : "global",
-        "target" : [
-            "global"
-        ],
-        "originalFileId" : str(originalFileId),
-        "Content-Type" : contentType,
-        "nativeLanguage" : "fr",
-        "i18n" : {
-            "fr" : {
-                "fields" : {
-                    "title" : title,
-                    "alt" : ""
-                },
-                "locale" : "fr"
-            }
-        },
-        "fileSize" : fileSize,
-        "version" : 1,
-        "lastUpdateUser" : {
-            "id" : "5659ba5e1a6c7ed7238b456e",
-            "login" : "admin",
-            "fullName" : "admin"
-        },
-        "createUser" : {
-            "id" : "5659ba5e1a6c7ed7238b456e",
-            "login" : "admin",
-            "fullName" : "admin"
-        },
-        "createTime" : createTime,
-        "lastUpdateTime" : lastUpdateTime
-    }
-    dam_id = db.Dam.insert_one(dam).inserted_id
+    damObject = db.Dam.findOne({'title':fileName},{'_id':1})
+    if (damObject is None):
+        filePath = baseUrl + visuel
+        contentType, fileEncoding =  mimetypes.guess_type(filePath)
+        image = urllib2.urlopen(filePath)
+        meta = image.info()
+        fileSize = int(meta.getheaders("Content-Length")[0])
+        originalFileId = fs.put(image, content_type=contentType, filename=fileName, mainFileType='Image')
+        createTime = int(time.time())
+        lastUpdateTime = createTime
+        dam = {
+            "typeId" : "51a60c1cc1c3da0407000007",
+            "directory" : "notFiled",
+            "mainFileType" : "Image",
+            "title" : fileName,
+            "taxonomy" : [ ],
+            "writeWorkspace" : "global",
+            "target" : [
+                "global"
+            ],
+            "originalFileId" : str(originalFileId),
+            "Content-Type" : contentType,
+            "nativeLanguage" : "fr",
+            "i18n" : {
+                "fr" : {
+                    "fields" : {
+                        "title" : fileName,
+                        "alt" : ""
+                    },
+                    "locale" : "fr"
+                }
+            },
+            "fileSize" : fileSize,
+            "version" : 1,
+            "lastUpdateUser" : {
+                "id" : "5659ba5e1a6c7ed7238b456e",
+                "login" : "admin",
+                "fullName" : "admin"
+            },
+            "createUser" : {
+                "id" : "5659ba5e1a6c7ed7238b456e",
+                "login" : "admin",
+                "fullName" : "admin"
+            },
+            "createTime" : createTime,
+            "lastUpdateTime" : lastUpdateTime
+        }
+        dam_id = db.Dam.insert_one(dam).inserted_id
+    else:
+        dam_id = damObject['_id']
     return dam_id
 
 def checksum_md5(self, filename):
