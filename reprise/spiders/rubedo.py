@@ -5,6 +5,7 @@ import gridfs
 import mimetypes
 import time
 import os
+import lxml
 
 connexionString = 'mongodb://webtales:w3bt4les2015@149.202.168.50'
 dbName = 'calais'
@@ -28,15 +29,17 @@ def insertContent(titre, chapeau, texte, visuel, images):
     
     # insert visuel
     if visuel is not None:
-        visuel_id = str(insertDAM('image de test', visuel))
+        visuel_id = str(insertDAM(os.path.basename(visuel), visuel))
     else:
         visuel_id = None
     
-    # get images
-    for image in images:
-        filename = 'http://www.calais.fr/' + str(image)
-        #print filename
-        #print self.checksum_md5(filename)
+    # get and replace images in body
+    body_lxml = lxml.html.document_fromstring(texte)
+    for thumbnail in body_lxml.xpath('//img'):
+        image = thumbnail.get('src')
+        image_id = str(insertDAM(os.path.basename(image), visuel))
+        image_path = '/dam?media-id=' + image_id
+        thumbnail.set('src',image_path) 
             
     content = {
         #"_id" : ObjectId("5659bd8c1a6c7ed3238b4621"),
