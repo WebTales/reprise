@@ -3,12 +3,10 @@ import rubedo
 import csv
 
 class RepriseSpider(scrapy.Spider):
-    l = []
+    start_urls = []
     with open("calais.csv", 'r') as f:
         for row in csv.reader(f.read().splitlines()):
-            l.append('http://'+row)
-    print l[0]
-    start_urls = l[0]
+            start_urls.append('http://'+row[0])
     name = "reprise"
     allowed_domains = ["calais.fr"]
 
