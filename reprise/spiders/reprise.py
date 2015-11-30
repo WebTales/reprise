@@ -6,7 +6,7 @@ class RepriseSpider(scrapy.Spider):
     l = []
     with open("calais.csv", 'r') as f:
         for row in csv.reader(f.read().splitlines()):
-        l.append(row)
+            l.append(row)
     print l[0]
     start_urls = l[0]
     name = "reprise"
