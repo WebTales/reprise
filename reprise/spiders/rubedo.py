@@ -4,6 +4,7 @@ import base64
 import gridfs
 import mimetypes
 import time
+import os
 
 connexionString = 'mongodb://webtales:w3bt4les2015@149.202.168.50'
 dbName = 'calais'
