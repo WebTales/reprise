@@ -127,7 +127,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
 def insertDAM(visuel):
     
     fileName = os.path.basename(visuel)
-    damObject = db.Dam.findOne({'title':fileName},{'_id':1})
+    damObject = db.Dam.find_one({'title':fileName},{'_id':1})
     if (damObject is None):
         filePath = baseUrl + visuel
         contentType, fileEncoding =  mimetypes.guess_type(filePath)
