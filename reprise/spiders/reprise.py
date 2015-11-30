@@ -1,13 +1,17 @@
 import scrapy
 import rubedo
+import csv
 
 class RepriseSpider(scrapy.Spider):
+    l = []
+    url_list = open("calais.csv", "rb")
+    reader = csv.reader(url_list)
+    for row in reader:
+        l.append(row)
+    print l[0]
+    start_urls = l[0]
     name = "reprise"
     allowed_domains = ["calais.fr"]
-    start_urls = [
-        "http://www.calais.fr/spip.php?article2680",
-        "http://www.calais.fr/spip.php?article145"
-    ]
 
     def parse(self, response):
         title = response.css('h1::text').extract_first()
