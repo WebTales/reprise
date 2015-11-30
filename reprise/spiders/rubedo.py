@@ -2,9 +2,11 @@ from pymongo import MongoClient
 import urllib2
 import base64
 import gridfs
+import mimetypes
 
 connexionString = 'mongodb://webtales:w3bt4les2015@149.202.168.50'
 dbName = 'calais'
+baseUrl = 'http://www.calais.fr/'
 
 client = MongoClient(connexionString)
 db = client[dbName]
@@ -116,7 +118,12 @@ def insertContent(titre, chapeau, texte, visuel, images):
     #content_id = db.Contents.insert_one(content).inserted_id
 
 def insertDAM(title, visuel):
-    print(visuel)
+    filePath = baseUrl + visuel
+    print mimetypes.guess_type(filePath)
+    #image = urllib2.urlopen(filePath)
+    
+    
+    
     originalFileId = "5659bd871a6c7ed4238b45c1"
     contentType = "image/jpeg"
     fileSize = 453680
