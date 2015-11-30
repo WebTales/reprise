@@ -1,5 +1,5 @@
 import scrapy
-import rubedo.py
+import rubedo
 
 class RepriseSpider(scrapy.Spider):
     name = "reprise"
