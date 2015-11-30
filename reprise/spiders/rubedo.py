@@ -27,7 +27,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
     
     # insert visuel
     if visuel is not None:
-        visuel_id = insertDAM('image de test', visuel)
+        visuel_id = str(insertDAM('image de test', visuel))
     else:
         visuel_id = None
     
@@ -139,7 +139,7 @@ def insertDAM(title, visuel):
         "target" : [
             "global"
         ],
-        "originalFileId" : originalFileId,
+        "originalFileId" : str(originalFileId),
         "Content-Type" : contentType,
         "nativeLanguage" : "fr",
         "i18n" : {
