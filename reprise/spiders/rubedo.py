@@ -3,6 +3,7 @@ import urllib2
 import base64
 import gridfs
 import mimetypes
+import time
 
 connexionString = 'mongodb://webtales:w3bt4les2015@149.202.168.50'
 dbName = 'calais'
@@ -21,8 +22,8 @@ def insertContent(titre, chapeau, texte, visuel, images):
     
     # default values
     typeId = "51a60bb0c1c3dac60700000e"
-    lastUpdateTime = 1448721804
-    createTime = 1448721804
+    createTime = int(time.time())
+    lastUpdateTime = createTime
     
     # insert visuel
     if visuel is not None:
@@ -124,9 +125,9 @@ def insertDAM(title, visuel):
     meta = image.info()
     fileSize = int(meta.getheaders("Content-Length")[0])
     originalFileId = fs.put(image, content_type=contentType, filename=title)
-
-    createTime = 1448721799
-    lastUpdateTime = 1448721799
+    
+    createTime = int(time.time())
+    lastUpdateTime = createTime
     dam = {
         "typeId" : "51a60c1cc1c3da0407000007",
         "directory" : "notFiled",
