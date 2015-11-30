@@ -20,7 +20,6 @@ def insertContent(titre, chapeau, texte, visuel, images):
     # get proper encoding
     titre = titre.encode('UTF-8')
     chapeau = titre
-    texte = texte.encode('UTF-8')
     
     # default values
     typeId = "51a60bb0c1c3dac60700000e"
@@ -41,6 +40,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
         image_path = '/dam?media-id=' + image_id
         thumbnail.set('src',image_path) 
     texte = lxml.html.tostring(body_lxml)  
+    texte = texte.encode('UTF-8')
         
     content = {
         #"_id" : ObjectId("5659bd8c1a6c7ed3238b4621"),
