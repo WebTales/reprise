@@ -125,6 +125,7 @@ def insertDAM(title, visuel):
     print("Content-Length:", meta.getheaders("Content-Length")[0])
     originalFileId = fs.put(image, content_type=contentType, filename=title)
     print(fs.get(originalFileId))
+    fs.delete(originalFileId)
     
     fileSize = 453680
     createTime = 1448721799
