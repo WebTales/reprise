@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import urllib2
 import base64
+import gridfs
 
 connexionString = 'mongodb://webtales:w3bt4les2015@149.202.168.50'
 dbName = 'calais'
@@ -107,7 +108,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
     }
     
     #print(content)
-    content_id = db.Contents.insert_one(content).inserted_id
+    #content_id = db.Contents.insert_one(content).inserted_id
 
 def checksum_md5(self, filename):
     try: 
