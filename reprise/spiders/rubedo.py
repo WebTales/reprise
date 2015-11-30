@@ -119,7 +119,8 @@ def insertContent(titre, chapeau, texte, visuel, images):
 
 def insertDAM(title, visuel):
     filePath = baseUrl + visuel
-    print mimetypes.guess_type(filePath)
+    (type, encoding) =  mimetypes.guess_type(filePath)
+    print(encoding)
     #image = urllib2.urlopen(filePath)
     
     
