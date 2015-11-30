@@ -106,8 +106,8 @@ def insertContent(titre, chapeau, texte, visuel, images):
         }
     }
     
-    print(content)
-    #content_id = db.Contents.insert_one(content).inserted_id
+    #print(content)
+    content_id = db.Contents.insert_one(content).inserted_id
 
 def checksum_md5(self, filename):
     try: 
