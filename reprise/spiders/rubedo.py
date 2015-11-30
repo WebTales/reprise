@@ -121,8 +121,10 @@ def insertDAM(title, visuel):
     filePath = baseUrl + visuel
     contentType, fileEncoding =  mimetypes.guess_type(filePath)
     image = urllib2.urlopen(filePath)
+    meta = image.info()
+    print("Content-Length:", meta.getheaders("Content-Length")[0])
     originalFileId = fs.put(image, content_type=contentType, filename=title)
-    
+    print(fs.get(originalFileId))
     
     fileSize = 453680
     createTime = 1448721799
