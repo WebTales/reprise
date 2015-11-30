@@ -26,8 +26,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
         #print filename
         #print self.checksum_md5(filename)
             
-    content = 
-    {
+    content = {
         #"_id" : ObjectId("5659bd8c1a6c7ed3238b4621"),
         "text" : titre,
         "typeId" : typeId,
