@@ -34,13 +34,14 @@ def insertContent(titre, chapeau, texte, visuel, images):
         visuel_id = None
     
     # get and replace images in body
-    body_lxml = lxml.html.document_fromstring(texte)
+    body_lxml = lxml.html.fromstring(texte)
     for thumbnail in body_lxml.xpath('//img[not (contains(@src, "arton") or contains(@src, "puce"))]'):
         image = thumbnail.get('src')
         image_id = str(insertDAM(image))
         image_path = '/dam?media-id=' + image_id
         thumbnail.set('src',image_path) 
-            
+    texte = lxml.html.tostring(texte)  
+        
     content = {
         #"_id" : ObjectId("5659bd8c1a6c7ed3238b4621"),
         "text" : titre,
