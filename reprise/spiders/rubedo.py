@@ -8,6 +8,7 @@ dbName = 'calais'
 
 client = MongoClient(connexionString)
 db = client[dbName]
+fs = gridfs.GridFS(dbName)
 
 def insertContent(titre, chapeau, texte, visuel, images):
 
@@ -20,6 +21,9 @@ def insertContent(titre, chapeau, texte, visuel, images):
     typeId = "51a60bb0c1c3dac60700000e"
     lastUpdateTime = 1448721804
     createTime = 1448721804
+    
+    # insert visuel
+    insertDAM('image de test', visuel)
     
     # get images
     for image in images:
@@ -109,6 +113,51 @@ def insertContent(titre, chapeau, texte, visuel, images):
     
     #print(content)
     #content_id = db.Contents.insert_one(content).inserted_id
+
+def insertDAM(title, visuel):
+    print(visuel)
+    originalFileId = "5659bd871a6c7ed4238b45c1"
+    contentType = "image/jpeg"
+    fileSize = 453680
+    createTime = 1448721799
+    lastUpdateTime = 1448721799
+    dam = {
+        "typeId" : "51a60c1cc1c3da0407000007",
+        "directory" : "notFiled",
+        "mainFileType" : "Image",
+        "title" : title,
+        "taxonomy" : [ ],
+        "writeWorkspace" : "global",
+        "target" : [
+            "global"
+        ],
+        "originalFileId" : originalFileId,
+        "Content-Type" : contentType,
+        "nativeLanguage" : "fr",
+        "i18n" : {
+            "fr" : {
+                "fields" : {
+                    "title" : title,
+                    "alt" : ""
+                },
+                "locale" : "fr"
+            }
+        },
+        "fileSize" : fileSize,
+        "version" : 1,
+        "lastUpdateUser" : {
+            "id" : "5659ba5e1a6c7ed7238b456e",
+            "login" : "admin",
+            "fullName" : "admin"
+        },
+        "createUser" : {
+            "id" : "5659ba5e1a6c7ed7238b456e",
+            "login" : "admin",
+            "fullName" : "admin"
+        },
+        "createTime" : createTime,
+        "lastUpdateTime" : lastUpdateTime
+    }
 
 def checksum_md5(self, filename):
     try: 
