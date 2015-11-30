@@ -8,7 +8,7 @@ dbName = 'calais'
 
 client = MongoClient(connexionString)
 db = client[dbName]
-fs = gridfs.GridFS(dbName)
+fs = gridfs.GridFS(db)
 
 def insertContent(titre, chapeau, texte, visuel, images):
 
