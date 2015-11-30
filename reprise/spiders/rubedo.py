@@ -31,10 +31,10 @@ def insertContent(titre, chapeau, texte, visuel, images):
         "text" : titre,
         "typeId" : typeId,
         "version" : 1,
-        "online" : true,
+        "online" : True,
         "lastUpdateTime" : lastUpdateTime,
         "createTime" : createTime,
-        "isProduct" : false,
+        "isProduct" : False,
         "productProperties" : "",
         "workspace" : {
             "fields" : {
