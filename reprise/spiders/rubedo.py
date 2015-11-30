@@ -122,11 +122,12 @@ def insertContent(titre, chapeau, texte, visuel, images):
 
 def insertDAM(title, visuel):
     filePath = baseUrl + visuel
+    fileName = os.path.basename(visuel)
     contentType, fileEncoding =  mimetypes.guess_type(filePath)
     image = urllib2.urlopen(filePath)
     meta = image.info()
     fileSize = int(meta.getheaders("Content-Length")[0])
-    originalFileId = fs.put(image, content_type=contentType, filename=title)
+    originalFileId = fs.put(image, content_type=contentType, filename=fileName, mainFileType='Image')
     createTime = int(time.time())
     lastUpdateTime = createTime
     dam = {
