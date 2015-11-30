@@ -30,7 +30,7 @@ def insertContent(titre, chapeau, texte, visuel, images):
         #"_id" : ObjectId("5659bd8c1a6c7ed3238b4621"),
         "text" : titre,
         "typeId" : typeId,
-        "version" : NumberLong(1),
+        "version" : 1,
         "online" : true,
         "lastUpdateTime" : lastUpdateTime,
         "createTime" : createTime,
