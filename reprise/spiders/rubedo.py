@@ -6,6 +6,8 @@ import mimetypes
 import time
 import os
 import lxml
+import params
+import pymysql.cursors
 
 connexionString = 'mongodb://webtales:w3bt4les2015@149.202.168.50'
 dbName = 'calais'
@@ -40,6 +42,8 @@ def insertContent(titre, chapeau, texte, visuel, images):
         image_path = '/dam?media-id=' + image_id
         thumbnail.set('src',image_path) 
     texte = lxml.html.tostring(body_lxml, encoding='UTF-8')  
+    
+    # PDF <a class="spip_in" href="IMG/pdf/bulletin_5_et_10_km.pdf" type="application/pdf">
         
     content = {
         #"_id" : ObjectId("5659bd8c1a6c7ed3238b4621"),
