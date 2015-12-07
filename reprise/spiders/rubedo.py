@@ -37,21 +37,28 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
     
     # insert visuel
     if visuel is not None:
-        visuel_id = str(insertDAM(visuel))
+        visuel_id = str(insertDAM(visuel,titre,"Image"))
     else:
         visuel_id = None
     
     # get and replace images in body
     body_lxml = lxml.html.fromstring(texte)
     for thumbnail in body_lxml.xpath('//img[not (contains(@src, "arton") or contains(@src, "puce"))]'):
-        image = thumbnail.get('src')
-        image_id = str(insertDAM(image))
+        image_src = thumbnail.get('src')
+        image_id = str(insertDAM(image_src,titre,"Image"))
         image_path = '/dam?media-id=' + image_id
         thumbnail.set('src',image_path) 
+
+    # get body
     texte = lxml.html.tostring(body_lxml, encoding='UTF-8')  
     
-    # PDF <a class="spip_in" href="IMG/pdf/bulletin_5_et_10_km.pdf" type="application/pdf">
-    
+    # get and replace pdfs in body
+    for pdf in body_lxml.xpath('//link[@type="application/pdf"]'):
+        pdf_src = pdf.get('src')
+        pdf_id = str(insertDAM(pdf_src,titre,"Document"))
+        pdf_path = '/dam?media-id=' + pdf_id
+        pdf.set('src',pdf_path)
+
     if taxo == "" or taxo is None:
         taxo_id = None
     else:
@@ -247,7 +254,12 @@ def getDates(content_id):
             dates['date_fin'] = str(int(time.mktime(result['date_redac'].timetuple())))
         return(dates)
 
-def insertDAM(visuel):
+def insertDAM(visuel,titre,mainFileType):
+
+    if type == "Image":
+        typeId = "51a60c1cc1c3da0407000007"
+    if type == "Document":
+        typeId = "5645acc380dd20200f0001e1"    
     
     fileName = os.path.basename(visuel)
     damObject = db.Dam.find_one({'title':fileName},{'_id':1})
@@ -261,9 +273,9 @@ def insertDAM(visuel):
         createTime = int(time.time())
         lastUpdateTime = createTime
         dam = {
-            "typeId" : "51a60c1cc1c3da0407000007",
+            "typeId" : typeId,
             "directory" : "notFiled",
-            "mainFileType" : "Image",
+            "mainFileType" : mainFileType,
             "title" : fileName,
             "taxonomy" : [ ],
             "writeWorkspace" : "global",
@@ -277,7 +289,7 @@ def insertDAM(visuel):
                 "fr" : {
                     "fields" : {
                         "title" : fileName,
-                        "alt" : ""
+                        "alt" : titre
                     },
                     "locale" : "fr"
                 }
