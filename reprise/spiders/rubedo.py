@@ -228,8 +228,8 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
             }
         }
     
-    #content_id = db.Contents.insert_one(object).inserted_id
-    print(object)
+    content_id = db.Contents.insert_one(object).inserted_id
+    #print(object)
 
 def getDates(content_id):
     with mysqlConnection.cursor() as cursor:
