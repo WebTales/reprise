@@ -255,11 +255,11 @@ def getDates(content_id):
             dates['date_fin'] = str(int(time.mktime(result['date_redac'].timetuple())))
         return(dates)
 
-def insertDAM(visuel,titre,mainFileType):
+def insertDAM(visuel,titre,main_filetype):
 
-    if mainFileType == "Image":
+    if main_filetype == "Image":
         typeId = "51a60c1cc1c3da0407000007"
-    if mainFileType == "Document":
+    if main_filetype == "Document":
         typeId = "5645acc380dd20200f0001e1"    
     
     fileName = os.path.basename(visuel)
@@ -270,13 +270,13 @@ def insertDAM(visuel,titre,mainFileType):
         image = urllib2.urlopen(filePath)
         meta = image.info()
         fileSize = int(meta.getheaders("Content-Length")[0])
-        originalFileId = fs.put(image, mainFileType, content_type=contentType, filename=fileName)
+        originalFileId = fs.put(image, main_filetype, content_type=contentType, filename=fileName, mainFileType=content_type)
         createTime = int(time.time())
         lastUpdateTime = createTime
         dam = {
             "typeId" : typeId,
             "directory" : "notFiled",
-            "mainFileType" : mainFileType,
+            "mainFileType" : main_filetype,
             "title" : fileName,
             "taxonomy" : [ ],
             "writeWorkspace" : "global",
@@ -310,7 +310,6 @@ def insertDAM(visuel,titre,mainFileType):
             "createTime" : createTime,
             "lastUpdateTime" : lastUpdateTime
         }
-        print(dam)
         dam_id = db.Dam.insert_one(dam).inserted_id
     else:
         dam_id = damObject['_id']
