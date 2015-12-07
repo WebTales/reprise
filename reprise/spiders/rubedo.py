@@ -53,7 +53,8 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo):
     texte = lxml.html.tostring(body_lxml, encoding='UTF-8')  
     
     # get and replace pdfs in body
-    for pdf in body_lxml.xpath('//link[@type="application/pdf"]'):
+    #for pdf in body_lxml.xpath('//link[@type="application/pdf"]'):
+    for pdf in body_lxml.xpath('//a[contains(@href,".pdf")']):
         pdf_src = pdf.get('href')
         pdf_id = str(insertDAM(pdf_src,titre,"Document"))
         pdf_path = '/dam?media-id=' + pdf_id
