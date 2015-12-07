@@ -27,8 +27,6 @@ class RepriseSpider(scrapy.Spider):
     
         item_index = response.meta['index']
         originalUrl = response.request.meta['redirect_urls'][0]
-        print(self.type[item_index])
-        exit()
         m = re.search(r'\d+',originalUrl)
         if m:
             contentId = m.group(0)

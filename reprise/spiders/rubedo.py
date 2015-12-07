@@ -20,7 +20,7 @@ mysqlConnection = pymysql.connect(host=params.host,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
-def insertContent(content_id, titre, resume, texte, visuel, images):
+def insertContent(content_id, titre, resume, texte, visuel, images, objectType, taxo):
 
     # get dates
     dates = getDates(content_id)
@@ -52,10 +52,10 @@ def insertContent(content_id, titre, resume, texte, visuel, images):
     
     # PDF <a class="spip_in" href="IMG/pdf/bulletin_5_et_10_km.pdf" type="application/pdf">
     
-    if dates['date_debut'] is None or dates['date_fin'] is None:
-        objectType = 'article'
+    if taxo == "" or taxo is None:
+        taxo_id = null
     else:
-        objectType = 'event'
+        taxo_id = taxo
         
     if objectType == 'article':            
         object = {
@@ -73,9 +73,11 @@ def insertContent(content_id, titre, resume, texte, visuel, images):
                     "date" : dates['date_debut']
                 },
                 "status" : "published",
-                "taxonomy" : [ ],
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
+                "taxonomy" : {
+                    "navigation" : taxo_id
+                },  
                 "target" : [
                             "",
                             "global"
@@ -102,9 +104,13 @@ def insertContent(content_id, titre, resume, texte, visuel, images):
                     "image" : visuel_id
                 },
                 "status" : "published",
-                "taxonomy" : [ ],
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
+                    "navigation" : taxo_id
+                },
+                "taxonomy" : {
+                    "navigation" : taxo_id
+                },                  
                 "target" : [
                             "",
                             "global"
@@ -155,9 +161,11 @@ def insertContent(content_id, titre, resume, texte, visuel, images):
                     "dateFin" : dates['date_fin']
                 },
                 "status" : "published",
-                "taxonomy" : [ ],
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
+                "taxonomy" : {
+                    "navigation" : taxo_id
+                },  
                 "target" : [
                             "",
                             "global"
@@ -184,9 +192,11 @@ def insertContent(content_id, titre, resume, texte, visuel, images):
                     "image" : visuel_id
                 },
                 "status" : "published",
-                "taxonomy" : [ ],
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
+                "taxonomy" : {
+                    "navigation" : taxo_id
+                },  
                 "target" : [
                             "",
                             "global"
