@@ -6,6 +6,7 @@ import re
 class RepriseSpider(scrapy.Spider):
 
     name = "reprise"
+    start_urls = []
     type = []
     taxo = []
     with open("calais.csv", 'r') as f:
