@@ -106,8 +106,6 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
                 "status" : "published",
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
-                    "navigation" : taxo_id
-                },
                 "taxonomy" : {
                     "navigation" : taxo_id
                 },                  
