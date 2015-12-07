@@ -4,17 +4,29 @@ import csv
 import re
 
 class RepriseSpider(scrapy.Spider):
-    start_urls = []
+
+    name = "reprise"
+    type = []
+    taxo = []
     with open("calais.csv", 'r') as f:
         for row in csv.reader(f.read().splitlines(),delimiter=';'):
             start_urls.append('http://'+row[0])
-            print(row[1])
-    name = "reprise"
-    exit()
-    allowed_domains = ["calais.fr"]
+            type.append(row[1])
+            taxo.append(row[2])
 
+    def start_requests(self):
+        for indx, url in enumerate(self.start_urls):
+            yield self.make_requests_from_url(url, {'index': indx})
+    
+    def make_requests_from_url(self, url, meta):
+       return Request(url, callback=self.parse, dont_filter=True, meta=meta)
+                   
     def parse(self, response):
+    
+        item_index = response.meta['index']
         originalUrl = response.request.meta['redirect_urls'][0]
+        print(self.type[item_index])
+        exit()
         m = re.search(r'\d+',originalUrl)
         if m:
             contentId = m.group(0)
@@ -29,7 +41,7 @@ class RepriseSpider(scrapy.Spider):
             texte = "".join(content.extract())
             visuel = response.xpath('//img[contains(@src, "arton")]/@src').extract_first()
             images = content.xpath('.//img[not (contains(@src, "arton") or contains(@src, "puce"))]/@src').extract()
-            rubedo.insertContent(contentId, title, title, texte, visuel, images)
+            rubedo.insertContent(contentId, title, title, texte, visuel, images, self.type[item_index], self.taxo[item_index])
         else:
             print(originalUrl)
             pass
