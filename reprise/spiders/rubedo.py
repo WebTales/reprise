@@ -58,7 +58,7 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo):
         pdf_src = pdf.get('href')
         pdf_id = str(insertDAM(pdf_src,titre,"Document"))
         pdf_path = '/dam?media-id=' + pdf_id
-        pdf.set('src',pdf_path)
+        pdf.set('href',pdf_path)
 
     if taxo == "" or taxo is None:
         taxo_id = None
