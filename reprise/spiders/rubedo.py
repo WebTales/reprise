@@ -55,7 +55,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
     if taxo == "" or taxo is None:
         taxo_id = None
     else:
-        taxo_id = taxo
+        taxo_id = [taxo]
         
     if objectType == 'article':            
         object = {
@@ -76,7 +76,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
                 "taxonomy" : {
-                    "navigation" : [taxo_id]
+                    "navigation" : taxo_id
                 },  
                 "target" : [
                             "",
@@ -107,7 +107,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
                 "taxonomy" : {
-                    "navigation" : [taxo_id]
+                    "navigation" : taxo_id
                 },                  
                 "target" : [
                             "",
@@ -162,7 +162,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
                 "taxonomy" : {
-                    "navigation" : [taxo_id]
+                    "navigation" : taxo_id
                 },  
                 "target" : [
                             "",
@@ -193,7 +193,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
                 "taxonomy" : {
-                    "navigation" : [taxo_id]
+                    "navigation" : taxo_id
                 },  
                 "target" : [
                             "",
