@@ -2,6 +2,7 @@ import scrapy
 import rubedo
 import csv
 import re
+import params
 from scrapy.http import Request
 
 class RepriseSpider(scrapy.Spider):
@@ -10,7 +11,7 @@ class RepriseSpider(scrapy.Spider):
     start_urls = []
     type = []
     taxo = []
-    with open("calais.csv", 'r') as f:
+    with open(params.file, 'r') as f:
         for row in csv.reader(f.read().splitlines(),delimiter=';'):
             start_urls.append('http://'+row[0])
             type.append(row[1])
