@@ -270,7 +270,7 @@ def insertDAM(visuel,titre,mainFileType):
         image = urllib2.urlopen(filePath)
         meta = image.info()
         fileSize = int(meta.getheaders("Content-Length")[0])
-        originalFileId = fs.put(image, content_type=contentType, filename=fileName, mainFileType)
+        originalFileId = fs.put(image, mainFileType, content_type=contentType, filename=fileName)
         createTime = int(time.time())
         lastUpdateTime = createTime
         dam = {
