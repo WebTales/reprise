@@ -53,7 +53,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
     # PDF <a class="spip_in" href="IMG/pdf/bulletin_5_et_10_km.pdf" type="application/pdf">
     
     if taxo == "" or taxo is None:
-        taxo_id = null
+        taxo_id = None
     else:
         taxo_id = taxo
         
