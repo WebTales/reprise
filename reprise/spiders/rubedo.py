@@ -310,6 +310,7 @@ def insertDAM(visuel,titre,mainFileType):
             "createTime" : createTime,
             "lastUpdateTime" : lastUpdateTime
         }
+        print(dam)
         dam_id = db.Dam.insert_one(dam).inserted_id
     else:
         dam_id = damObject['_id']
