@@ -76,7 +76,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
                 "taxonomy" : {
-                    "navigation" : taxo_id
+                    "navigation" : [taxo_id]
                 },  
                 "target" : [
                             "",
@@ -107,7 +107,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
                 "taxonomy" : {
-                    "navigation" : taxo_id
+                    "navigation" : [taxo_id]
                 },                  
                 "target" : [
                             "",
@@ -162,7 +162,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
                 "taxonomy" : {
-                    "navigation" : taxo_id
+                    "navigation" : [taxo_id]
                 },  
                 "target" : [
                             "",
@@ -193,7 +193,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
                 "startPublicationDate" : "",
                 "endPublicationDate" : "",
                 "taxonomy" : {
-                    "navigation" : taxo_id
+                    "navigation" : [taxo_id]
                 },  
                 "target" : [
                             "",
