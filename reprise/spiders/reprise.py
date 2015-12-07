@@ -2,6 +2,7 @@ import scrapy
 import rubedo
 import csv
 import re
+from scrapy.http import Request
 
 class RepriseSpider(scrapy.Spider):
 
