@@ -20,7 +20,7 @@ mysqlConnection = pymysql.connect(host=params.host,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
-def insertContent(content_id, titre, resume, texte, visuel, images, objectType, taxo):
+def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo):
 
     # get dates
     dates = getDates(content_id)
@@ -54,7 +54,7 @@ def insertContent(content_id, titre, resume, texte, visuel, images, objectType, 
     
     # get and replace pdfs in body
     for pdf in body_lxml.xpath('//link[@type="application/pdf"]'):
-        pdf_src = pdf.get('src')
+        pdf_src = pdf.get('href')
         pdf_id = str(insertDAM(pdf_src,titre,"Document"))
         pdf_path = '/dam?media-id=' + pdf_id
         pdf.set('src',pdf_path)

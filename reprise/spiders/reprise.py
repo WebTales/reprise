@@ -41,9 +41,8 @@ class RepriseSpider(scrapy.Spider):
             content = content.xpath('*[not(@id="outils" or ancestor::div/@id="outils")]')
             texte = "".join(content.extract())
             visuel = response.xpath('//img[contains(@src, "arton")]/@src').extract_first()
-            images = content.xpath('.//img[not (contains(@src, "arton") or contains(@src, "puce"))]/@src').extract()
             
-            rubedo.insertContent(contentId, title, title, texte, visuel, images, self.type[item_index], self.taxo[item_index])
+            rubedo.insertContent(contentId, title, title, texte, visuel, self.type[item_index], self.taxo[item_index])
         else:
             print(originalUrl)
             pass
