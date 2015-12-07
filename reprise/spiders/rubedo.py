@@ -257,9 +257,9 @@ def getDates(content_id):
 
 def insertDAM(visuel,titre,mainFileType):
 
-    if type == "Image":
+    if mainFileType == "Image":
         typeId = "51a60c1cc1c3da0407000007"
-    if type == "Document":
+    if mainFileType == "Document":
         typeId = "5645acc380dd20200f0001e1"    
     
     fileName = os.path.basename(visuel)
@@ -270,7 +270,7 @@ def insertDAM(visuel,titre,mainFileType):
         image = urllib2.urlopen(filePath)
         meta = image.info()
         fileSize = int(meta.getheaders("Content-Length")[0])
-        originalFileId = fs.put(image, content_type=contentType, filename=fileName, mainFileType='Image')
+        originalFileId = fs.put(image, content_type=contentType, filename=fileName, mainFileType)
         createTime = int(time.time())
         lastUpdateTime = createTime
         dam = {
