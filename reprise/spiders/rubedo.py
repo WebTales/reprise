@@ -250,9 +250,9 @@ def getDates(content_id):
         cursor.execute(sql)
         result = cursor.fetchone()
         if result['date']:
-            dates['date_debut'] = str(int(time.mktime(result['date'].timetuple())))
+            dates['date_debut'] = int(time.mktime(result['date'].timetuple()))
         if result['date_redac']:
-            dates['date_fin'] = str(int(time.mktime(result['date_redac'].timetuple())))
+            dates['date_fin'] = int(time.mktime(result['date_redac'].timetuple()))
         return(dates)
 
 def insertDAM(visuel,titre,main_filetype):
