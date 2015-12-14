@@ -64,7 +64,14 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, wo
         taxo_id = None
     else:
         taxo_id = [taxo]
-        
+    
+    if workspace == "":
+        writeWorkspace = "global"
+        target = ["global"]
+    else:
+        writeWorkspace = workspace
+        target = ["global", workspace]
+    
     if objectType == 'article':            
         object = {
             "text" : titre,
@@ -86,8 +93,8 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, wo
                 "taxonomy" : {
                     "navigation" : taxo_id
                 },  
-                "target" : ["global", workspace],
-                "writeWorkspace" : workspace,
+                "target" : target,
+                "writeWorkspace" : writeWorkspace,
                 "pageId" : "",
                 "maskId" : "",
                 "blockId" : "",
@@ -114,8 +121,8 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, wo
                 "taxonomy" : {
                     "navigation" : taxo_id
                 },                  
-                "target" : ["global", workspace],
-                "writeWorkspace" : workspace,
+                "target" : target,
+                "writeWorkspace" : writeWorkspace,
                 "pageId" : "",
                 "maskId" : "",
                 "blockId" : "",
@@ -166,8 +173,8 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, wo
                 "taxonomy" : {
                     "navigation" : taxo_id
                 },  
-                "target" : ["global", workspace],
-                "writeWorkspace" : workspace,
+                "target" : target,
+                "writeWorkspace" : writeWorkspace,
                 "pageId" : "",
                 "maskId" : "",
                 "blockId" : "",
@@ -186,7 +193,9 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, wo
             },
             "live" : {
                 "fields" : {
-                    "image" : visuel_id
+                    "image" : visuel_id,
+                    "dateDebut" : dates['date_debut'],
+                    "dateFin" : dates['date_fin']
                 },
                 "status" : "published",
                 "startPublicationDate" : "",
@@ -194,8 +203,8 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, wo
                 "taxonomy" : {
                     "navigation" : taxo_id
                 },  
-                "target" : ["global", workspace],
-                "writeWorkspace" : workspace,
+                "target" : target,
+                "writeWorkspace" : writeWorkspace,
                 "pageId" : "",
                 "maskId" : "",
                 "blockId" : "",
@@ -270,8 +279,8 @@ def insertDAM(visuel,titre,main_filetype):
             "mainFileType" : main_filetype,
             "title" : fileName,
             "taxonomy" : [ ],
-            "writeWorkspace" : workspace,
-            "target" : ["global", workspace],
+            "writeWorkspace" : "global",
+            "target" : ["global"],
             "originalFileId" : str(originalFileId),
             "Content-Type" : contentType,
             "nativeLanguage" : "fr",
