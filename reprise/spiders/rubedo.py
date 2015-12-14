@@ -65,7 +65,7 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, wo
     else:
         taxo_id = [taxo]
     
-    if workspace == "":
+    if workspace == "" or workspace is None:
         writeWorkspace = "global"
         target = ["global"]
     else:
