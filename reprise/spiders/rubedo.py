@@ -20,7 +20,7 @@ mysqlConnection = pymysql.connect(host=params.host,
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
-def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo):
+def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, workspace):
 
     # get dates
     dates = getDates(content_id)
@@ -86,25 +86,22 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo):
                 "taxonomy" : {
                     "navigation" : taxo_id
                 },  
-                "target" : [
-                            "",
-                            "global"
-                            ],
-                            "writeWorkspace" : "global",
-                            "pageId" : "",
-                            "maskId" : "",
-                            "blockId" : "",
-                            "i18n" : {
-                                "fr" : {
-                                    "fields" : {
-                                        "text" : titre,
-                                        "urlSegment" : "",
-                                        "summary" : resume,
-                                        "corps" : texte
-                                    },
-                                    "locale" : "fr"
-                            }
-                            },
+                "target" : ["global", workspace],
+                "writeWorkspace" : workspace,
+                "pageId" : "",
+                "maskId" : "",
+                "blockId" : "",
+                "i18n" : {
+                    "fr" : {
+                        "fields" : {
+                            "text" : titre,
+                            "urlSegment" : "",
+                            "summary" : resume,
+                            "corps" : texte
+                        },
+                        "locale" : "fr"
+                    }
+                },
                 "nativeLanguage" : "fr"
             },
             "live" : {
@@ -117,25 +114,22 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo):
                 "taxonomy" : {
                     "navigation" : taxo_id
                 },                  
-                "target" : [
-                            "",
-                            "global"
-                            ],
-                            "writeWorkspace" : "global",
-                            "pageId" : "",
-                            "maskId" : "",
-                            "blockId" : "",
-                            "i18n" : {
-                                "fr" : {
-                                    "fields" : {
-                                        "text" : titre,
-                                        "urlSegment" : "",
-                                        "summary" : resume,
-                                        "corps" : texte
-                                    },
-                                    "locale" : "fr"
-                            }
-                            },
+                "target" : ["global", workspace],
+                "writeWorkspace" : workspace,
+                "pageId" : "",
+                "maskId" : "",
+                "blockId" : "",
+                "i18n" : {
+                    "fr" : {
+                        "fields" : {
+                            "text" : titre,
+                            "urlSegment" : "",
+                            "summary" : resume,
+                            "corps" : texte
+                        },
+                        "locale" : "fr"
+                    }
+                },
                 "nativeLanguage" : "fr"
             },
             "lastUpdateUser" : {
@@ -172,25 +166,22 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo):
                 "taxonomy" : {
                     "navigation" : taxo_id
                 },  
-                "target" : [
-                            "",
-                            "global"
-                            ],
-                            "writeWorkspace" : "global",
-                            "pageId" : "",
-                            "maskId" : "",
-                            "blockId" : "",
-                            "i18n" : {
-                                "fr" : {
-                                    "fields" : {
-                                        "text" : titre,
-                                        "urlSegment" : "",
-                                        "summary" : resume,
-                                        "corps" : texte
-                                    },
-                                    "locale" : "fr"
-                            }
-                            },
+                "target" : ["global", workspace],
+                "writeWorkspace" : workspace,
+                "pageId" : "",
+                "maskId" : "",
+                "blockId" : "",
+                "i18n" : {
+                    "fr" : {
+                        "fields" : {
+                            "text" : titre,
+                            "urlSegment" : "",
+                            "summary" : resume,
+                            "corps" : texte
+                        },
+                        "locale" : "fr"
+                    }
+                },
                 "nativeLanguage" : "fr"
             },
             "live" : {
@@ -203,25 +194,22 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo):
                 "taxonomy" : {
                     "navigation" : taxo_id
                 },  
-                "target" : [
-                            "",
-                            "global"
-                            ],
-                            "writeWorkspace" : "global",
-                            "pageId" : "",
-                            "maskId" : "",
-                            "blockId" : "",
-                            "i18n" : {
-                                "fr" : {
-                                    "fields" : {
-                                        "text" : titre,
-                                        "urlSegment" : "",
-                                        "summary" : resume,
-                                        "body" : texte
-                                    },
-                                    "locale" : "fr"
-                            }
-                            },
+                "target" : ["global", workspace],
+                "writeWorkspace" : workspace,
+                "pageId" : "",
+                "maskId" : "",
+                "blockId" : "",
+                "i18n" : {
+                    "fr" : {
+                        "fields" : {
+                            "text" : titre,
+                            "urlSegment" : "",
+                            "summary" : resume,
+                            "corps" : texte
+                        },
+                        "locale" : "fr"
+                    }
+                },
                 "nativeLanguage" : "fr"
             },
             "lastUpdateUser" : {
@@ -282,10 +270,8 @@ def insertDAM(visuel,titre,main_filetype):
             "mainFileType" : main_filetype,
             "title" : fileName,
             "taxonomy" : [ ],
-            "writeWorkspace" : "global",
-            "target" : [
-                "global"
-            ],
+            "writeWorkspace" : workspace,
+            "target" : ["global", workspace],
             "originalFileId" : str(originalFileId),
             "Content-Type" : contentType,
             "nativeLanguage" : "fr",

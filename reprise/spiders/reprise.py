@@ -11,11 +11,13 @@ class RepriseSpider(scrapy.Spider):
     start_urls = []
     type = []
     taxo = []
+    workspaces = []
     with open(params.file, 'r') as f:
         for row in csv.reader(f.read().splitlines(),delimiter=';'):
             start_urls.append('http://'+row[0])
             type.append(row[1])
             taxo.append(row[2])
+            workspaces.append(row[3])
 
     def start_requests(self):
         for indx, url in enumerate(self.start_urls):
@@ -42,7 +44,7 @@ class RepriseSpider(scrapy.Spider):
             texte = "".join(content.extract())
             visuel = response.xpath('//img[contains(@src, "arton")]/@src').extract_first()
             
-            rubedo.insertContent(contentId, title, title, texte, visuel, self.type[item_index], self.taxo[item_index])
+            rubedo.insertContent(contentId, title, title, texte, visuel, self.type[item_index], self.taxo[item_index], self.workspaces[item_index])
         else:
             print(originalUrl)
             pass
