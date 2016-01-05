@@ -23,15 +23,39 @@ class DemoSpider(scrapy.Spider):
     def parse(self, response):
     
         title = response.css('h1::text').extract_first()
+        
         subtitle = response.xpath('//*[@class="detail-title_subtitle"]/text()').extract_first()
+        
         price = response.xpath('//*[@id="price"]/text()').extract_first()
-        description = response.xpath('//*[@class="description"]/text()').extract_first()
+        
+        description = response.xpath('//input[(@type="hidden") and (@name="description")]/@value').extract_first()
+        
         photo = response.xpath('//input[(@type="hidden") and (@name="urlphoto")]/@value').extract_first()
+        
+        ville = response.xpath('//input[(@type="hidden") and (@name="ville")]/@value').extract_first()
+        
+        codepostal = response.xpath('//input[(@type="hidden") and (@name="codepostal")]/@value').extract_first()
+        
+        typebien = response.xpath('//input[(@type="hidden") and (@name="typebien")]/@value').extract_first()
+        
+        surface = response.xpath('//input[(@type="hidden") and (@name="surface")]/@value').extract_first()
+        
+        caracteristiques = response.xpath('//*[@class="description-liste"]/text()').extract_first()
+        
+        
+        
+        
+        
         print(title.encode('utf-8'))
         print(subtitle.encode('utf-8'))
         print(price.encode('utf-8'))
         print(description.encode('utf-8'))
         print(photo)
+        print(ville)
+        print(codepostal)
+        print(typebien)
+        print(surface)
+        print(caracteristiques)
         #chapeau = title
         #content = response.xpath('//*[@id="content"]')
         #content = content.xpath('*[not(self::form or ancestor::form)]')
