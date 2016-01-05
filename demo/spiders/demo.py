@@ -33,9 +33,12 @@ class DemoSpider(scrapy.Spider):
             price = response.xpath('//*[@id="price"]/text()').extract_first().encode('utf-8')
         except:
             price = ""
-                    
-        description = response.xpath('//input[(@type="hidden") and (@name="description")]/@value').extract_first().encode('utf-8')
         
+        try:            
+            description = response.xpath('//input[(@type="hidden") and (@name="description")]/@value').extract_first().encode('utf-8')
+        except:
+            description = ""
+            
         photo = response.xpath('//input[(@type="hidden") and (@name="urlphoto")]/@value').extract_first()
         
         ville = response.xpath('//input[(@type="hidden") and (@name="ville")]/@value').extract_first().encode('utf-8')
