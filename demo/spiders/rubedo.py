@@ -7,24 +7,13 @@ import time
 import os
 import lxml
 import params
-import pymysql.cursors
 
 client = MongoClient(params.connexionString)
 db = client[params.dbName]
 fs = gridfs.GridFS(db)
 
-mysqlConnection = pymysql.connect(host=params.host,
-                             user=params.user,
-                             password=params.password,
-                             db=params.db,
-                             charset='utf8mb4',
-                             cursorclass=pymysql.cursors.DictCursor)
-
 def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, workspace):
-
-    # get dates
-    dates = getDates(content_id)
-    
+   
     # get proper encoding
     titre = titre.encode('UTF-8')
     resume = titre
@@ -235,22 +224,6 @@ def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, wo
     
     content_id = db.Contents.insert_one(object).inserted_id
     #print(object)
-
-def getDates(content_id):
-    with mysqlConnection.cursor() as cursor:
-        dates = {
-            'date_debut' : None,
-            'date_fin' : None
-        }
-        # Read a single record
-        sql = "SELECT date, date_redac FROM spip_articles WHERE id_article=" + content_id
-        cursor.execute(sql)
-        result = cursor.fetchone()
-        if result['date']:
-            dates['date_debut'] = str(int(time.mktime(result['date'].timetuple())))
-        if result['date_redac']:
-            dates['date_fin'] = str(int(time.mktime(result['date_redac'].timetuple())))
-        return(dates)
 
 def insertDAM(visuel,titre,main_filetype):
 

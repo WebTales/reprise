@@ -1,5 +1,5 @@
 import scrapy
-#import rubedo
+import rubedo
 import csv
 import re
 import params
