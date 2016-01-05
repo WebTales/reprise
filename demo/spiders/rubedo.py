@@ -106,7 +106,7 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
             "login" : "admin",
             "fullName" : "admin"
         }
-
+    }
     
     #content_id = db.Contents.insert_one(object).inserted_id
     print(object)
