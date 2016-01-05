@@ -24,7 +24,10 @@ class DemoSpider(scrapy.Spider):
     
         title = response.css('title::text').extract_first().encode('utf-8')
         
-        subtitle = response.xpath('//*[@class="detail-title_subtitle"]/text()').extract_first().encode('utf-8')
+        try:
+            subtitle = response.xpath('//*[@class="detail-title_subtitle"]/text()').extract_first().encode('utf-8')
+        except:
+            subtitle = ""
         
         price = response.xpath('//*[@id="price"]/text()').extract_first().encode('utf-8')
         
