@@ -47,8 +47,6 @@ class DemoSpider(scrapy.Spider):
         
         lat = (float(northeastLatitude) + float(southwestLatitude))/2
         lon = (float(northeastLongitude) + float(southwestLongitude))/2
-        print(lat)
-        print(lon)
                
-        rubedo.insertContent(title, subtitle, price,description, photo, ville, codepostal, typebien, surface)
+        rubedo.insertContent(title, subtitle, price,description, photo, ville, codepostal, typebien, surface, lat, lon)
 

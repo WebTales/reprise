@@ -12,7 +12,7 @@ client = MongoClient(params.connexionString)
 db = client[params.dbName]
 fs = gridfs.GridFS(db)
 
-def insertContent(title, subtitle, price, description, photo, ville, codepostal, typebien, surface):
+def insertContent(title, subtitle, price, description, photo, ville, codepostal, typebien, surface, lat, lon):
       
     # default values
     createTime = int(time.time())
@@ -39,6 +39,15 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
         "workspace" : {
             "fields" : {
                 "image" : visuel_id,
+                "position" : {
+                    "address" : "",
+                    "location : {
+                        "type : "Point", 
+                        "coordinates : [lon, lat]
+                    },
+                    "lat": lat,
+                    "lon": lon
+                }
             },
             "status" : "published",
             "startPublicationDate" : "",
@@ -68,7 +77,16 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
         },
         "live" : {
             "fields" : {
-                "image" : visuel_id
+                "image" : visuel_id,
+                "position" : {
+                    "address" : "",
+                    "location : {
+                        "type : "Point", 
+                        "coordinates : [lon, lat]
+                    },
+                    "lat": lat,
+                    "lon": lon
+                }
             },
             "status" : "published",
             "startPublicationDate" : "",
