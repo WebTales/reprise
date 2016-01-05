@@ -25,8 +25,8 @@ class DemoSpider(scrapy.Spider):
         title = response.css('h1::text').extract_first()
         subtitle = response.xpath('//*[@class="detail-title_subtitle"]/text()')
         
-        print(title)
-        print(subtitle)
+        print(title.encode('utf-8'))
+        print(subtitle.encode('utf-8'))
         
         #chapeau = title
         #content = response.xpath('//*[@id="content"]')
