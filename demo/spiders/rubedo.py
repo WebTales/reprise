@@ -38,7 +38,7 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
         "productProperties" : "",
         "workspace" : {
             "fields" : {
-                "photo" : visuel_id,
+                "image" : visuel_id,
             },
             "status" : "published",
             "startPublicationDate" : "",
@@ -68,7 +68,7 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
         },
         "live" : {
             "fields" : {
-                "photo" : visuel_id
+                "image" : visuel_id
             },
             "status" : "published",
             "startPublicationDate" : "",
