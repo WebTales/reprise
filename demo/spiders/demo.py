@@ -58,9 +58,9 @@ class DemoSpider(scrapy.Spider):
                 
         try:
             surface = response.xpath('//input[(@type="hidden") and (@name="surface")]/@value').extract_first().encode('utf-8')
-         except:
+        except:
             surface = ""
-                
+
         try:
             northeastLatitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-latitude').extract_first().encode('utf-8')
             northeastLongitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-longitude').extract_first().encode('utf-8')
