@@ -24,10 +24,10 @@ class DemoSpider(scrapy.Spider):
     
         title = response.css('h1::text').extract_first()
         subtitle = response.xpath('//*[@class="detail-title_subtitle"]/text()').extract_first()
-        
+        price = response.xpath('//*[@id="price"]/text()').extract_first()
         print(title.encode('utf-8'))
         print(subtitle.encode('utf-8'))
-        
+        print(price.encode('utf-8'))
         #chapeau = title
         #content = response.xpath('//*[@id="content"]')
         #content = content.xpath('*[not(self::form or ancestor::form)]')
