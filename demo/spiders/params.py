@@ -1,6 +1,3 @@
-host='localhost'
-user='user'
-password='passwd'
-db='db'
-charset='utf8mb4'
+connexionString = 'mongodb://user:password@ip'  
+dbName='db'
 file=‘demo.csv'
