@@ -1,3 +1,6 @@
-connexionString = 'mongodb://user:password@ip'  
-dbName='db'
+connexionString = 'mongodb://MONGO-seloger-test-1.seloger-test'  
+dbName='rubedo'
 file=‘demo.csv'
+typeId='568b90f8ac10013e008b4567'
+typeImage='51a60c1cc1c3da0407000007'
+typeDocument=''

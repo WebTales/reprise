@@ -12,225 +12,111 @@ client = MongoClient(params.connexionString)
 db = client[params.dbName]
 fs = gridfs.GridFS(db)
 
-def insertContent(content_id, titre, resume, texte, visuel, objectType, taxo, workspace):
-   
-    # get proper encoding
-    titre = titre.encode('UTF-8')
-    resume = titre
-    
+def insertContent(title, subtitle, price, description, photo, ville, codepostal, typebien, surface):
+      
     # default values
-    articleTypeId = "5644ac7880dd204c2a000087"
-    eventTypeId = "5644b0a380dd20200f0001ce"
     createTime = int(time.time())
     lastUpdateTime = createTime
     
     # insert visuel
-    if visuel is not None:
-        visuel_id = str(insertDAM(visuel,titre,"Image"))
+    if photo is not None:
+        visuel_id = str(insertDAM(photo,title,"Image"))
     else:
         visuel_id = None
-    
-    # get and replace images in body
-    body_lxml = lxml.html.fromstring(texte)
-    for thumbnail in body_lxml.xpath('//img[not (contains(@src, "arton") or contains(@src, "puce"))]'):
-        image_src = thumbnail.get('src')
-        image_id = str(insertDAM(image_src,titre,"Image"))
-        image_path = '/dam?media-id=' + image_id
-        thumbnail.set('src',image_path) 
-
-    # get body
-    texte = lxml.html.tostring(body_lxml, encoding='UTF-8')  
-    
-    # get and replace pdfs in body
-    #for pdf in body_lxml.xpath('//link[@type="application/pdf"]'):
-    for pdf in body_lxml.xpath('//a[contains(@href,".pdf")]'):
-        pdf_src = pdf.get('href')
-        pdf_id = str(insertDAM(pdf_src,titre,"Document"))
-        pdf_path = '/dam?media-id=' + pdf_id
-        pdf.set('href',pdf_path)
-
-    if taxo == "" or taxo is None:
-        taxo_id = None
-    else:
-        taxo_id = [taxo]
-    
-    if workspace == "" or workspace is None:
-        writeWorkspace = "global"
-        target = ["global"]
-    else:
-        writeWorkspace = workspace
-        target = ["global", workspace]
-    
-    if objectType == 'article':            
-        object = {
-            "text" : titre,
-            "typeId" : articleTypeId,
-            "version" : 1,
-            "online" : True,
-            "lastUpdateTime" : lastUpdateTime,
-            "createTime" : createTime,
-            "isProduct" : False,
-            "productProperties" : "",
-            "workspace" : {
-                "fields" : {
-                    "image" : visuel_id,
-                    "date" : dates['date_debut']
-                },
-                "status" : "published",
-                "startPublicationDate" : "",
-                "endPublicationDate" : "",
-                "taxonomy" : {
-                    "navigation" : taxo_id
-                },  
-                "target" : target,
-                "writeWorkspace" : writeWorkspace,
-                "pageId" : "",
-                "maskId" : "",
-                "blockId" : "",
-                "i18n" : {
-                    "fr" : {
-                        "fields" : {
-                            "text" : titre,
-                            "urlSegment" : "",
-                            "summary" : resume,
-                            "corps" : texte
-                        },
-                        "locale" : "fr"
-                    }
-                },
-                "nativeLanguage" : "fr"
+   
+    writeWorkspace = "global"
+    target = ["global"]
+     
+    object = {
+        "text" : title,
+        "typeId" : params.typeId,
+        "version" : 1,
+        "online" : True,
+        "lastUpdateTime" : lastUpdateTime,
+        "createTime" : createTime,
+        "isProduct" : False,
+        "productProperties" : "",
+        "workspace" : {
+            "fields" : {
+                "photo" : visuel_id,
             },
-            "live" : {
-                "fields" : {
-                    "image" : visuel_id
-                },
-                "status" : "published",
-                "startPublicationDate" : "",
-                "endPublicationDate" : "",
-                "taxonomy" : {
-                    "navigation" : taxo_id
-                },                  
-                "target" : target,
-                "writeWorkspace" : writeWorkspace,
-                "pageId" : "",
-                "maskId" : "",
-                "blockId" : "",
-                "i18n" : {
-                    "fr" : {
-                        "fields" : {
-                            "text" : titre,
-                            "urlSegment" : "",
-                            "summary" : resume,
-                            "corps" : texte
-                        },
-                        "locale" : "fr"
-                    }
-                },
-                "nativeLanguage" : "fr"
+            "status" : "published",
+            "startPublicationDate" : "",
+            "endPublicationDate" : "",
+            "target" : target,
+            "writeWorkspace" : writeWorkspace,
+            "pageId" : "",
+            "maskId" : "",
+            "blockId" : "",
+            "i18n" : {
+                "fr" : {
+                    "fields" : {
+                        "text" : title,
+                        "urlSegment" : "",
+                        "summary" : subtitle,
+                        "price" : price,
+                        "description" : description, 
+                        "ville" : ville,
+                        "codepostal" : codepostal,
+                        "typebien" : typebien,
+                        "surface" : surface
+                    },
+                    "locale" : "fr"
+                }
             },
-            "lastUpdateUser" : {
-                "id" : "5659ba5e1a6c7ed7238b456e",
-                "login" : "admin",
-                "fullName" : "admin"
+            "nativeLanguage" : "fr"
+        },
+        "live" : {
+            "fields" : {
+                "photo" : visuel_id
             },
-            "createUser" : {
-                "id" : "5659ba5e1a6c7ed7238b456e",
-                "login" : "admin",
-                "fullName" : "admin"
-            }
+            "status" : "published",
+            "startPublicationDate" : "",
+            "endPublicationDate" : "",              
+            "target" : target,
+            "writeWorkspace" : writeWorkspace,
+            "pageId" : "",
+            "maskId" : "",
+            "blockId" : "",
+            "i18n" : {
+                "fr" : {
+                    "fields" : {
+                        "text" : title,
+                        "urlSegment" : "",
+                        "summary" : subtitle,
+                        "price" : price,
+                        "description" : description, 
+                        "ville" : ville,
+                        "codepostal" : codepostal,
+                        "typebien" : typebien,
+                        "surface" : surface
+                    },
+                    "locale" : "fr"
+                }
+            },
+            "nativeLanguage" : "fr"
+        },
+        "lastUpdateUser" : {
+            "id" : "5659ba5e1a6c7ed7238b456e",
+            "login" : "admin",
+            "fullName" : "admin"
+        },
+        "createUser" : {
+            "id" : "5659ba5e1a6c7ed7238b456e",
+            "login" : "admin",
+            "fullName" : "admin"
         }
 
-    if objectType == 'event':         
-        object = {
-            "text" : titre,
-            "typeId" : eventTypeId,
-            "version" : 1,
-            "online" : True,
-            "lastUpdateTime" : lastUpdateTime,
-            "createTime" : createTime,
-            "isProduct" : False,
-            "productProperties" : "",
-            "workspace" : {
-                "fields" : {
-                    "image" : visuel_id,
-                    "dateDebut" : dates['date_debut'],
-                    "dateFin" : dates['date_fin']
-                },
-                "status" : "published",
-                "startPublicationDate" : "",
-                "endPublicationDate" : "",
-                "taxonomy" : {
-                    "navigation" : taxo_id
-                },  
-                "target" : target,
-                "writeWorkspace" : writeWorkspace,
-                "pageId" : "",
-                "maskId" : "",
-                "blockId" : "",
-                "i18n" : {
-                    "fr" : {
-                        "fields" : {
-                            "text" : titre,
-                            "urlSegment" : "",
-                            "summary" : resume,
-                            "corps" : texte
-                        },
-                        "locale" : "fr"
-                    }
-                },
-                "nativeLanguage" : "fr"
-            },
-            "live" : {
-                "fields" : {
-                    "image" : visuel_id,
-                    "dateDebut" : dates['date_debut'],
-                    "dateFin" : dates['date_fin']
-                },
-                "status" : "published",
-                "startPublicationDate" : "",
-                "endPublicationDate" : "",
-                "taxonomy" : {
-                    "navigation" : taxo_id
-                },  
-                "target" : target,
-                "writeWorkspace" : writeWorkspace,
-                "pageId" : "",
-                "maskId" : "",
-                "blockId" : "",
-                "i18n" : {
-                    "fr" : {
-                        "fields" : {
-                            "text" : titre,
-                            "urlSegment" : "",
-                            "summary" : resume,
-                            "corps" : texte
-                        },
-                        "locale" : "fr"
-                    }
-                },
-                "nativeLanguage" : "fr"
-            },
-            "lastUpdateUser" : {
-                "id" : "5659ba5e1a6c7ed7238b456e",
-                "login" : "admin",
-                "fullName" : "admin"
-            },
-            "createUser" : {
-                "id" : "5659ba5e1a6c7ed7238b456e",
-                "login" : "admin",
-                "fullName" : "admin"
-            }
-        }
     
-    content_id = db.Contents.insert_one(object).inserted_id
-    #print(object)
+    #content_id = db.Contents.insert_one(object).inserted_id
+    print(object)
 
 def insertDAM(visuel,titre,main_filetype):
 
     if main_filetype == "Image":
-        typeId = "51a60c1cc1c3da0407000007"
+        typeId = params.typeImage
     if main_filetype == "Document":
-        typeId = "5645acc380dd20200f0001e1"    
+        typeId = params.typeDocument   
     
     fileName = os.path.basename(visuel)
     damObject = db.Dam.find_one({'title':fileName},{'_id':1})
