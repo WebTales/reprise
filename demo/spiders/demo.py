@@ -23,7 +23,7 @@ class DemoSpider(scrapy.Spider):
     def parse(self, response):
     
         title = response.css('h1::text').extract_first()
-        subtitle = response.xpath('//*[@class="detail-title_subtitle"]/text()')
+        subtitle = response.xpath('//*[@class="detail-title_subtitle"]/text()').extract_first()
         
         print(title.encode('utf-8'))
         print(subtitle.encode('utf-8'))
