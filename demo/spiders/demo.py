@@ -26,10 +26,12 @@ class DemoSpider(scrapy.Spider):
         subtitle = response.xpath('//*[@class="detail-title_subtitle"]/text()').extract_first()
         price = response.xpath('//*[@id="price"]/text()').extract_first()
         description = response.xpath('//*[@class="description"]/text()').extract_first()
+        photo = response.xpath('//input[(@type="hidden") and (@name="urlphoto")]/@value')
         print(title.encode('utf-8'))
         print(subtitle.encode('utf-8'))
         print(price.encode('utf-8'))
         print(description.encode('utf-8'))
+        print(photo)
         #chapeau = title
         #content = response.xpath('//*[@id="content"]')
         #content = content.xpath('*[not(self::form or ancestor::form)]')
