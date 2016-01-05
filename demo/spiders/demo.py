@@ -45,8 +45,8 @@ class DemoSpider(scrapy.Spider):
         southwestLatitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-southwest-latitude').extract_first().encode('utf-8')
         southwestLongitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-southwest-longitude').extract_first().encode('utf-8')        
         
-        lat = (northeastLatitude + southwestLatitude)/2
-        lon = (northeastLongitude + southwestLongitude)/2
+        lat = (int(northeastLatitude) + int(southwestLatitude))/2
+        lon = (int(northeastLongitude) + int(southwestLongitude))/2
         print(lat)
         print(lon)
                
