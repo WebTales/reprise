@@ -26,7 +26,7 @@ class DemoSpider(scrapy.Spider):
         subtitle = response.xpath('//*[@class="detail-title_subtitle"]/text()').extract_first()
         price = response.xpath('//*[@id="price"]/text()').extract_first()
         description = response.xpath('//*[@class="description"]/text()').extract_first()
-        photo = response.xpath('//input[(@type="hidden") and (@name="urlphoto")]/@value')
+        photo = response.xpath('//input[(@type="hidden") and (@name="urlphoto")]/@value').extract_first()
         print(title.encode('utf-8'))
         print(subtitle.encode('utf-8'))
         print(price.encode('utf-8'))
