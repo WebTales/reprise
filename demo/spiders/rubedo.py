@@ -42,7 +42,7 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
                 "position" : {
                     "address" : "",
                     "location : {
-                        "type : "Point", 
+                        "type" : "Point", 
                         "coordinates : [lon, lat]
                     },
                     "lat": lat,
@@ -81,7 +81,7 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
                 "position" : {
                     "address" : "",
                     "location : {
-                        "type : "Point", 
+                        "type" : "Point", 
                         "coordinates : [lon, lat]
                     },
                     "lat": lat,
