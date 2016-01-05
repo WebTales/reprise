@@ -40,7 +40,7 @@ class DemoSpider(scrapy.Spider):
         
         surface = response.xpath('//input[(@type="hidden") and (@name="surface")]/@value').extract_first()
         
-        caracteristiques = response.xpath('//*[@class="description-liste"]/text()').extract_first()
+        caracteristiques = response.xpath('//ol[@class="description-liste"]/text()').extract_first()
         
         
         
