@@ -40,10 +40,10 @@ class DemoSpider(scrapy.Spider):
         
         surface = response.xpath('//input[(@type="hidden") and (@name="surface")]/@value').extract_first().encode('utf-8')
         
-        data-boudingbox-northeast-latitude = response.xpath('//*[@id="resume__map_new"]/@data-boudingbox-northeast-latitude').extract_first().encode('utf-8')
-        data-boudingbox-northeast-longitude = response.xpath('//*[@id="resume__map_new"]/@data-boudingbox-northeast-longitude').extract_first().encode('utf-8')
-        data-boudingbox-southwest-latitude = response.xpath('//*[@id="resume__map_new"]/@data-boudingbox-southwest-latitude').extract_first().encode('utf-8')
-        data-boudingbox-southwest-longitude = response.xpath('//*[@id="resume__map_new"]/@data-boudingbox-southwest-longitude').extract_first().encode('utf-8')        
+        data-boudingbox-northeast-latitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-latitude').extract_first().encode('utf-8')
+        data-boudingbox-northeast-longitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-longitude').extract_first().encode('utf-8')
+        data-boudingbox-southwest-latitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-southwest-latitude').extract_first().encode('utf-8')
+        data-boudingbox-southwest-longitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-southwest-longitude').extract_first().encode('utf-8')        
         
         lat = (data-boudingbox-northeast-latitude + data-boudingbox-southwest-latitude)/2
         lon = (data-boudingbox-northeast-longitude + data-boudingbox-southwest-longitude)/2
