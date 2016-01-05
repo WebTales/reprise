@@ -40,15 +40,27 @@ class DemoSpider(scrapy.Spider):
             description = ""
             
         photo = response.xpath('//input[(@type="hidden") and (@name="urlphoto")]/@value').extract_first()
+
+        try:          
+            ville = response.xpath('//input[(@type="hidden") and (@name="ville")]/@value').extract_first().encode('utf-8')
+        except:
+            ville = ""
         
-        ville = response.xpath('//input[(@type="hidden") and (@name="ville")]/@value').extract_first().encode('utf-8')
+        try:          
+            codepostal = response.xpath('//input[(@type="hidden") and (@name="codepostal")]/@value').extract_first().encode('utf-8')
+        except:
+            codepostal = ""
         
-        codepostal = response.xpath('//input[(@type="hidden") and (@name="codepostal")]/@value').extract_first().encode('utf-8')
-        
-        typebien = response.xpath('//input[(@type="hidden") and (@name="typebien")]/@value').extract_first().encode('utf-8')
-        
-        surface = response.xpath('//input[(@type="hidden") and (@name="surface")]/@value').extract_first().encode('utf-8')
-        
+        try:
+            typebien = response.xpath('//input[(@type="hidden") and (@name="typebien")]/@value').extract_first().encode('utf-8')
+        except:    
+            typebien = ""
+                
+        try:
+            surface = response.xpath('//input[(@type="hidden") and (@name="surface")]/@value').extract_first().encode('utf-8')
+         except:
+            surface = ""
+                
         try:
             northeastLatitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-latitude').extract_first().encode('utf-8')
             northeastLongitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-longitude').extract_first().encode('utf-8')
