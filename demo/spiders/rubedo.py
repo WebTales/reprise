@@ -41,9 +41,9 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
                 "image" : visuel_id,
                 "position" : {
                     "address" : "",
-                    "location : {
+                    "location" : {
                         "type" : "Point", 
-                        "coordinates : [lon, lat]
+                        "coordinates" : [lon, lat]
                     },
                     "lat": lat,
                     "lon": lon
@@ -80,9 +80,9 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
                 "image" : visuel_id,
                 "position" : {
                     "address" : "",
-                    "location : {
+                    "location" : {
                         "type" : "Point", 
-                        "coordinates : [lon, lat]
+                        "coordinates" : [lon, lat]
                     },
                     "lat": lat,
                     "lon": lon
