@@ -11,7 +11,7 @@ class DemoSpider(scrapy.Spider):
     start_urls = []
     with open(params.file, 'r') as f:
         for row in csv.reader(f.read().splitlines(),delimiter=';'):
-            start_urls.append(row)
+            start_urls.append(row[0])
 
     def start_requests(self):
         for indx, url in enumerate(self.start_urls):
