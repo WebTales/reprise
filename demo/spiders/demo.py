@@ -29,8 +29,11 @@ class DemoSpider(scrapy.Spider):
         except:
             subtitle = ""
         
-        price = response.xpath('//*[@id="price"]/text()').extract_first().encode('utf-8')
-        
+        try:
+            price = response.xpath('//*[@id="price"]/text()').extract_first().encode('utf-8')
+        except:
+            price = ""
+                    
         description = response.xpath('//input[(@type="hidden") and (@name="description")]/@value').extract_first().encode('utf-8')
         
         photo = response.xpath('//input[(@type="hidden") and (@name="urlphoto")]/@value').extract_first()
@@ -43,13 +46,17 @@ class DemoSpider(scrapy.Spider):
         
         surface = response.xpath('//input[(@type="hidden") and (@name="surface")]/@value').extract_first().encode('utf-8')
         
-        northeastLatitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-latitude').extract_first().encode('utf-8')
-        northeastLongitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-longitude').extract_first().encode('utf-8')
-        southwestLatitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-southwest-latitude').extract_first().encode('utf-8')
-        southwestLongitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-southwest-longitude').extract_first().encode('utf-8')        
-        
-        lat = (float(northeastLatitude) + float(southwestLatitude))/2
-        lon = (float(northeastLongitude) + float(southwestLongitude))/2
-               
+        try:
+            northeastLatitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-latitude').extract_first().encode('utf-8')
+            northeastLongitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-northeast-longitude').extract_first().encode('utf-8')
+            southwestLatitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-southwest-latitude').extract_first().encode('utf-8')
+            southwestLongitude = response.xpath('//div[@id="resume__map_new"]/@data-boudingbox-southwest-longitude').extract_first().encode('utf-8')        
+            
+            lat = (float(northeastLatitude) + float(southwestLatitude))/2
+            lon = (float(northeastLongitude) + float(southwestLongitude))/2
+        except:
+            lat=0
+            lon=0
+            
         rubedo.insertContent(title, subtitle, price,description, photo, ville, codepostal, typebien, surface, lat, lon)
 
