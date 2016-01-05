@@ -108,8 +108,8 @@ def insertContent(title, subtitle, price, description, photo, ville, codepostal,
         }
     }
     
-    #content_id = db.Contents.insert_one(object).inserted_id
-    print(object)
+    content_id = db.Contents.insert_one(object).inserted_id
+    #print(object)
 
 def insertDAM(visuel,titre,main_filetype):
 
