@@ -1,0 +1,6 @@
+dbName='rubedo'
+baseUrl=''
+connexionString='10.7.0.144,10.7.0.142/?replicaSet=MONGO-webtales-test'
+createUserId='52298672b58ce90823000000'
+contentTypeId='5800849472a0feac018bac0c'
+damTypeId='52298661b58ce90810000006'

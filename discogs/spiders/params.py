@@ -1,0 +1,6 @@
+host='localhost'
+user='user'
+password='passwd'
+db='db'
+charset='utf8mb4'
+file='calais_test.csv'
