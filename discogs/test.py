@@ -38,6 +38,10 @@ def insertContent(release):
     else:
         visuel_id = None
 
+    taxonomies = {}
+    for key in release:
+        if (params.vocabularies[key]):
+            taxonomies[params.vocabularies[key]] = insertTaxo(params.vocabularies[key], release[key])
     #if taxo == "" or taxo is None:
     taxo_id = None
     #else:
@@ -63,7 +67,7 @@ def insertContent(release):
             "startPublicationDate" : "",
             "endPublicationDate" : "",
             "taxonomy" : {
-                "navigation" : taxo_id
+                taxonomies
             },
             "target" : target,
             "writeWorkspace" : writeWorkspace,
@@ -123,6 +127,31 @@ def insertContent(release):
 
     content_id = db.Contents.insert_one(object).inserted_id
     print(content_id)
+
+def insertTaxo(vocabulary,terms):
+    results = []
+    for term in terms:
+        termObject = db.TaxonomyTerms.find_one({'vocabularyId':vocabulary,'term':term},{'_id':1})
+        if (termObject is None):
+            term = {
+                "text" : term,
+                "vocabularyId" : vocabulary,
+                "parentId" : "root",
+                "leaf" : true,
+                "expandable" : false,
+                "nativeLanguage" : "en",
+                "i18n" : {
+                    "en" : {
+                        "text" : term,
+                        "locale" : "en"
+                    }
+                }
+            }
+            term_id = db.TaxonomyTerms.insert_one(term).inserted_id
+        else:
+            term_id = termObject['_id']
+        results.append(term_id)
+    return results
 
 def insertDAM(visuel,titre):
 
