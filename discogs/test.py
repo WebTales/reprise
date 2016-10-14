@@ -21,27 +21,27 @@ response = urllib2.urlopen(req)
 releases = json.loads(response.read())
 
 def insertContent(release):
- # content_id, titre, resume, texte, visuel, objectType, taxo, workspace
 
-    # get proper encoding
     titre = release['title']
     titre = titre.encode('UTF-8')
     resume = titre
-
-    # default values
     createTime = int(time.time())
     lastUpdateTime = createTime
+    taxonomies = {}
+    fields = {}
 
     # insert visuel
     if release['thumb']:
         visuel_id = str(insertDAM(release['thumb'],titre))
     else:
         visuel_id = None
+    fields["thumbnail"] = visuel_id
 
-    taxonomies = {}
     for key in release:
         if (key in params.vocabularies):
             taxonomies[params.vocabularies[key]] = insertTaxo(params.vocabularies[key], release[key])
+        if (key in params.fields):
+            fields[params.fields[key]] = release[key]
     #if taxo == "" or taxo is None:
     taxo_id = None
     #else:
@@ -60,9 +60,7 @@ def insertContent(release):
         "isProduct" : False,
         "productProperties" : "",
         "workspace" : {
-            "fields" : {
-                "thumbnail" : visuel_id
-            },
+            "fields" : fields,
             "status" : "published",
             "startPublicationDate" : "",
             "endPublicationDate" : "",
@@ -85,15 +83,11 @@ def insertContent(release):
             "nativeLanguage" : "en"
         },
         "live" : {
-            "fields" : {
-                "thumbnail" : visuel_id
-            },
+            "fields" : fields,
             "status" : "published",
             "startPublicationDate" : "",
             "endPublicationDate" : "",
-            "taxonomy" : {
-                "navigation" : taxo_id
-            },
+            "taxonomy" : taxonomies,
             "target" : target,
             "writeWorkspace" : writeWorkspace,
             "pageId" : "",
