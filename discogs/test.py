@@ -145,9 +145,9 @@ def insertTaxo(vocabulary,terms):
                     }
                 }
             }
-            term_id = db.TaxonomyTerms.insert_one(term).inserted_id
+            term_id = str(db.TaxonomyTerms.insert_one(term).inserted_id)
         else:
-            term_id = termObject['_id']
+            term_id = str(termObject['_id'])
         results.append(term_id)
     return results
 
