@@ -131,7 +131,7 @@ def insertContent(release):
 def insertTaxo(vocabulary,terms):
     results = []
     for term in terms:
-        termObject = db.TaxonomyTerms.find_one({'vocabularyId':vocabulary,'term':term},{'_id':1})
+        termObject = db.TaxonomyTerms.find_one({'vocabularyId':vocabulary,'text':term},{'_id':1})
         if (termObject is None):
             term = {
                 "text" : term,
