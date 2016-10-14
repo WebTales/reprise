@@ -5,6 +5,7 @@ import json
 import time
 import mimetypes
 import os
+import gridfs
 
 client = MongoClient(params.connexionString)
 db = client[params.dbName]
