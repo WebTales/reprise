@@ -66,9 +66,7 @@ def insertContent(release):
             "status" : "published",
             "startPublicationDate" : "",
             "endPublicationDate" : "",
-            "taxonomy" : {
-                taxonomies
-            },
+            "taxonomy" : taxonomies,
             "target" : target,
             "writeWorkspace" : writeWorkspace,
             "pageId" : "",
