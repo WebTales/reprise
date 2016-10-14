@@ -118,7 +118,7 @@ def insertContent(release):
     }
 
     content_id = db.Contents.insert_one(object).inserted_id
-    print(object)
+    print(content_id)
 
 def insertTaxo(vocabulary,terms):
     results = []
