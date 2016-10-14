@@ -121,8 +121,8 @@ def insertContent(release):
         }
     }
 
-    #content_id = db.Contents.insert_one(object).inserted_id
-    print(object)
+    content_id = db.Contents.insert_one(object).inserted_id
+    print(content_id)
 
 def insertDAM(visuel,titre):
 
