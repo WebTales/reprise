@@ -33,7 +33,7 @@ def insertContent(release):
     lastUpdateTime = createTime
 
     # insert visuel
-    if release['thumb'] is not None:
+    if release['thumb']:
         visuel_id = str(insertDAM(release['thumb'],titre))
     else:
         visuel_id = None
