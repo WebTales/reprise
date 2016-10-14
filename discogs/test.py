@@ -138,7 +138,7 @@ def insertTaxo(vocabulary,terms):
                 "vocabularyId" : vocabulary,
                 "parentId" : "root",
                 "leaf" : True,
-                "expandable" : false,
+                "expandable" : False,
                 "nativeLanguage" : "en",
                 "i18n" : {
                     "en" : {
