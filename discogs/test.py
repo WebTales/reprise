@@ -71,7 +71,7 @@ def insertContent(release):
             "maskId" : "",
             "blockId" : "",
             "i18n" : {
-                "fr" : {
+                "en" : {
                     "fields" : {
                         "text" : titre,
                         "urlSegment" : "",
@@ -98,7 +98,7 @@ def insertContent(release):
             "maskId" : "",
             "blockId" : "",
             "i18n" : {
-                "fr" : {
+                "en" : {
                     "fields" : {
                         "text" : titre,
                         "urlSegment" : "",
