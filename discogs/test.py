@@ -40,7 +40,7 @@ def insertContent(release):
 
     taxonomies = {}
     for key in release:
-        if (params.vocabularies[key]):
+        if (key in params.vocabularies):
             taxonomies[params.vocabularies[key]] = insertTaxo(params.vocabularies[key], release[key])
     #if taxo == "" or taxo is None:
     taxo_id = None
