@@ -11,7 +11,7 @@ client = MongoClient(params.connexionString)
 db = client[params.dbName]
 fs = gridfs.GridFS(db)
 
-url = 'https://api.discogs.com/database/search?type=release&per_page=10'
+url = 'https://api.discogs.com/database/search?type=release&per_page=100'
 
 auth = {'Discogs token=SDRLVIGRXKJYqpWuvCGMDnUtIaYchavROyvisOOnSDRLVIGRXKJYqpWuvCGMDnUtIaYchavROyvisOOn'}
 headers = {'Authorization': 'Discogs token=SDRLVIGRXKJYqpWuvCGMDnUtIaYchavROyvisOOn'}
