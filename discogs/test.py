@@ -127,7 +127,7 @@ def insertContent(release):
 def insertDAM(visuel,titre):
 
     fileName = os.path.basename(visuel)
-    damObject = db.Dam.find_one({'title':fileName},{'_id':1})
+    damObject = db.Dam.find_one({'originalFileId':fileName},{'_id':1})
     if (damObject is None):
         filePath = params.baseUrl + visuel
         contentType, fileEncoding =  mimetypes.guess_type(filePath)
