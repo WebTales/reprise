@@ -200,5 +200,11 @@ def insertDAM(visuel,titre):
         dam_id = damObject['_id']
     return dam_id
 
+def getReleaseDetail(url):
+    request = urllib2.Request(url, None, None)
+    response = urllib2.urlopen(request)
+    print(json.loads(response.read()))
+
 for release in releases['results']:
-    insertContent(release)
+    #insertContent(release)
+    getReleaseDetail(release['resource_url'])
