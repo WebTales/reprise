@@ -201,7 +201,7 @@ def insertDAM(visuel,titre):
     return dam_id
 
 def getReleaseDetail(url):
-    request = urllib2.Request(url, None, None)
+    request = urllib2.Request(url, data, headers)
     response = urllib2.urlopen(request)
     print(json.loads(response.read()))
 
