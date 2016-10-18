@@ -143,7 +143,7 @@ def insertRelease(id, url):
         content_id = db.Contents.insert_one(object).inserted_id
         print('New release: ' + str(id))
     else:
-        print('Skiping release '+ found +': already exists')
+        print('Skiping release '+ str(id) +': already exists')
 
 def insertArtist(id, url):
     if (url=='https://api.discogs.com/artists/194'):
@@ -260,7 +260,7 @@ def insertArtist(id, url):
             print e.msg
         return None
     else:
-        print('Skiping artist '+ found +': already exists')
+        print('Skiping artist '+ str(id) +': already exists')
 
 def insertTaxo(vocabulary,terms):
     results = []
