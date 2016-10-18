@@ -330,5 +330,5 @@ def insertDAM(visuel,titre):
     return dam_id
 
 for item in releases['results']:
-    #insertContent(release)
-    insertRelease(item['resource_url'])
+    if (item['type']==='master'):
+        insertRelease(item['resource_url'])
