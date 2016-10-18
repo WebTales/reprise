@@ -20,7 +20,11 @@ req = urllib2.Request(url, data, headers)
 response = urllib2.urlopen(req)
 releases = json.loads(response.read())
 
-def insertContent(release):
+def insertRelease(url):
+    print(url)
+    request = urllib2.Request(url, data, headers)
+    response = urllib2.urlopen(request)
+    release = json.loads(response.read())
 
     titre = release['title']
     titre = titre.encode('UTF-8')
@@ -30,29 +34,43 @@ def insertContent(release):
     taxonomies = {}
     fields = {}
 
-    # insert visuel
-    if release['thumb']:
-        visuel_id = str(insertDAM(release['thumb'],titre))
-    else:
-        visuel_id = None
-    fields["thumbnail"] = visuel_id
+    # insert images
+    images = []
+    if ('images' in release):
+        for image in release['images']:
+            visuel_id = str(insertDAM(image['uri'],titre))
+            images.append(visuel_id)
+    fields['images'] = images
 
+    # insert videos
+    videos = []
+    if ('videos' in release):
+        for video in release['videos']:
+            videos.append({'url': video['uri']})
+    fields['videos'] = videos
+
+    # insert fields and taxonomies
     for key in release:
         if (key in params.vocabularies):
             taxonomies[params.vocabularies[key]] = insertTaxo(params.vocabularies[key], release[key])
         if (key in params.fields):
             fields[params.fields[key]] = release[key]
-    #if taxo == "" or taxo is None:
-    taxo_id = None
-    #else:
-    #    taxo_id = [taxo]
+
+    # insert artists
+    artists = []
+    if ('artists' in release):
+        for artist in release['artists']:
+            artist_id = str(insertArtist(artist['resource_url']))
+            if artist_id is not None:
+                artists.append(artist_id)
+    fields['artists'] = artists
 
     writeWorkspace = "global"
     target = ["global"]
 
     object = {
         "text" : titre,
-        "typeId" : params.contentTypeId,
+        "typeId" : params.releaseTypeId,
         "version" : 1,
         "online" : True,
         "lastUpdateTime" : lastUpdateTime,
@@ -119,6 +137,117 @@ def insertContent(release):
 
     content_id = db.Contents.insert_one(object).inserted_id
     print(content_id)
+
+def insertArtist(url):
+    print(url)
+    if (url==='https://api.discogs.com/artists/194'):
+        return None
+    request = urllib2.Request(url, data, headers)
+    try:
+        response = urllib2.urlopen(request)
+        artist = json.loads(response.read())
+        titre = artist['name']
+        titre = titre.encode('UTF-8')
+        resume = titre
+        createTime = int(time.time())
+        lastUpdateTime = createTime
+        taxonomies = {}
+        fields = {}
+        # insert images
+        images = []
+        if ('images' in artist):
+            for image in artist['images']:
+                visuel_id = str(insertDAM(image['uri'],titre))
+                images.append(visuel_id)
+        fields['images'] = images
+        # insert urls
+        urls = []
+        if ('urls' in artist):
+            for url in artist['urls']:
+                urls.append({'url': url})
+        fields['urls'] = urls
+        # insert fields and taxonomies
+        for key in artist:
+            if (key in params.vocabularies):
+                taxonomies[params.vocabularies[key]] = insertTaxo(params.vocabularies[key], artist[key])
+            if (key in params.fields):
+                fields[params.fields[key]] = artist[key]
+        writeWorkspace = "global"
+        target = ["global"]
+        object = {
+            "text" : titre,
+            "typeId" : params.artistTypeId,
+            "version" : 1,
+            "online" : True,
+            "lastUpdateTime" : lastUpdateTime,
+            "createTime" : createTime,
+            "isProduct" : False,
+            "productProperties" : "",
+            "workspace" : {
+                "fields" : fields,
+                "status" : "published",
+                "startPublicationDate" : "",
+                "endPublicationDate" : "",
+                "taxonomy" : taxonomies,
+                "target" : target,
+                "writeWorkspace" : writeWorkspace,
+                "pageId" : "",
+                "maskId" : "",
+                "blockId" : "",
+                "i18n" : {
+                    "en" : {
+                        "fields" : {
+                            "text" : titre,
+                            "urlSegment" : "",
+                            "summary" : ""
+                        },
+                        "locale" : "en"
+                    }
+                },
+                "nativeLanguage" : "en"
+            },
+            "live" : {
+                "fields" : fields,
+                "status" : "published",
+                "startPublicationDate" : "",
+                "endPublicationDate" : "",
+                "taxonomy" : taxonomies,
+                "target" : target,
+                "writeWorkspace" : writeWorkspace,
+                "pageId" : "",
+                "maskId" : "",
+                "blockId" : "",
+                "i18n" : {
+                    "en" : {
+                        "fields" : {
+                            "text" : titre,
+                            "urlSegment" : "",
+                            "summary" : "",
+                        },
+                        "locale" : "en"
+                    }
+                },
+                "nativeLanguage" : "en"
+            },
+            "lastUpdateUser" : {
+                "id" : params.createUserId,
+                "login" : "admin",
+                "fullName" : "admin"
+            },
+            "createUser" : {
+                "id" : params.createUserId,
+                "login" : "admin",
+                "fullName" : "admin"
+            }
+        }
+
+        artist_id = db.Contents.insert_one(object).inserted_id
+        return artist_id
+    except urllib2.HTTPError, e:
+        print e.code
+        print e.msg
+    return None
+
 
 def insertTaxo(vocabulary,terms):
     results = []
@@ -200,11 +329,6 @@ def insertDAM(visuel,titre):
         dam_id = damObject['_id']
     return dam_id
 
-def getReleaseDetail(url):
-    request = urllib2.Request(url, data, headers)
-    response = urllib2.urlopen(request)
-    print(json.loads(response.read()))
-
-for release in releases['results']:
+for item in releases['results']:
     #insertContent(release)
-    getReleaseDetail(release['resource_url'])
+    insertRelease(item['resource_url'])
