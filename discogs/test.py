@@ -23,7 +23,7 @@ releases = json.loads(response.read())
 def insertRelease(id, url):
 
     # Check for existing release
-    found = db.Contents.find_one({'typeId' : params.releaseTypeId, 'discogsid' : id},{'_id':1})
+    found = db.Contents.find_one({'typeId' : params.releaseTypeId, 'live.fields.discogsid' : id},{'_id':1})
     if (found is None):
         request = urllib2.Request(url, data, headers)
         response = urllib2.urlopen(request)
@@ -146,11 +146,10 @@ def insertRelease(id, url):
         print('Skiping release '+ found +': already exists')
 
 def insertArtist(id, url):
-    print(url)
     if (url=='https://api.discogs.com/artists/194'):
         return None
     # Check for existing artist
-    found = db.Contents.find_one({'typeId' : params.artistTypeId, 'discogsid' : id},{'_id':1})
+    found = db.Contents.find_one({'typeId' : params.artistTypeId, 'live.fields.discogsid' : id},{'_id':1})
     if (found is None):
         request = urllib2.Request(url, data, headers)
         try:
