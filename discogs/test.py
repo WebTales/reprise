@@ -147,7 +147,7 @@ def insertRelease(id, url):
 
 def insertArtist(id, url):
     print(url)
-    if (url==='https://api.discogs.com/artists/194'):
+    if (url=='https://api.discogs.com/artists/194'):
         return None
     # Check for existing artist
     found = db.Contents.find_one({'typeId' : params.artistTypeId, 'discogsid' : id},{'_id':1})
