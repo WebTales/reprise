@@ -141,7 +141,7 @@ def insertRelease(id, url):
         }
 
         content_id = db.Contents.insert_one(object).inserted_id
-        print('New release: ' + id)
+        print('New release: ' + str(id))
     else:
         print('Skiping release '+ found +': already exists')
 
@@ -254,7 +254,7 @@ def insertArtist(id, url):
             }
 
             artist_id = db.Contents.insert_one(object).inserted_id
-            print('New artist: ' + id)
+            print('New artist: ' + str(id))
             return artist_id
         except urllib2.HTTPError, e:
             print e.code
