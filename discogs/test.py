@@ -10,15 +10,11 @@ import gridfs
 client = MongoClient(params.connexionString)
 db = client[params.dbName]
 fs = gridfs.GridFS(db)
-
-url = 'https://api.discogs.com/database/search?type=master&per_page=100'
+numPages = 2
 
 auth = {'Discogs token=SDRLVIGRXKJYqpWuvCGMDnUtIaYchavROyvisOOnSDRLVIGRXKJYqpWuvCGMDnUtIaYchavROyvisOOn'}
 headers = {'Authorization': 'Discogs token=SDRLVIGRXKJYqpWuvCGMDnUtIaYchavROyvisOOn'}
 data = None
-req = urllib2.Request(url, data, headers)
-response = urllib2.urlopen(req)
-releases = json.loads(response.read())
 
 def insertRelease(id, url, country, formats):
 
@@ -346,5 +342,10 @@ def insertDAM(visuel,titre):
         dam_id = damObject['_id']
     return dam_id
 
-for item in releases['results']:
-    insertRelease(item['id'], item['resource_url'], item['country'], item['format'])
+for i in range(1,numPages) :
+    url = 'https://api.discogs.com/database/search?type=master&per_page=100' + '&page=' + i
+    req = urllib2.Request(url, data, headers)
+    response = urllib2.urlopen(req)
+    releases = json.loads(response.read())
+    for item in releases['results']:
+        insertRelease(item['id'], item['resource_url'], item['country'], item['format'])
