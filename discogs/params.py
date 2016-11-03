@@ -7,7 +7,8 @@ artistTypeId='5804abf072a0fe79018b83fb'
 damTypeId='52298661b58ce90810000006'
 vocabularies={
     'styles' : '58008eb072a0fe94148bb6af',
-    'genres' : '58008f0b72a0fe19008b658e'
+    'genres' : '58008f0b72a0fe19008b658e',
+    'formats' : '58008eea72a0fe75018b63b3'
 }
 fields={
     'country' : 'country',
