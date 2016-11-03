@@ -20,7 +20,7 @@ req = urllib2.Request(url, data, headers)
 response = urllib2.urlopen(req)
 releases = json.loads(response.read())
 
-def insertRelease(id, url):
+def insertRelease(id, url, country):
 
     # Check for existing release
     found = db.Contents.find_one({'typeId' : params.releaseTypeId, 'live.fields.discogsid' : id},{'_id':1})
@@ -39,6 +39,9 @@ def insertRelease(id, url):
         # id
         fields['discogsid'] = release['id']
 
+        # country
+        fields['country'] = country
+        
         # insert images
         images = []
         if ('images' in release):
@@ -343,4 +346,4 @@ def insertDAM(visuel,titre):
     return dam_id
 
 for item in releases['results']:
-    insertRelease(item['id'], item['resource_url'])
+    insertRelease(item['id'], item['resource_url'], item['country'])
