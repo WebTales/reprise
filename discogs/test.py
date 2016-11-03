@@ -343,7 +343,7 @@ def insertDAM(visuel,titre):
     return dam_id
 
 for i in range(1,numPages) :
-    url = 'https://api.discogs.com/database/search?type=master&per_page=100' + '&page=' + i
+    url = 'https://api.discogs.com/database/search?type=master&per_page=100' + '&page=' + str(i)
     req = urllib2.Request(url, data, headers)
     response = urllib2.urlopen(req)
     releases = json.loads(response.read())
